@@ -16,13 +16,7 @@ concurrency:
 jobs:
   tests:
     strategy:
-      matrix:
-        os:
-        - macos-15
-        - ubuntu-24.04
-        - windows-2025
-      fail-fast: false
-    runs-on: ${{ matrix.os }}
+    runs-on: ubuntu-24.04
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4.2.2

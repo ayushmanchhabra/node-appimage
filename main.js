@@ -10,7 +10,7 @@ async function appImage({
     appName,
     outDir,
 }) {
-
+    throw new Error('Not implemented');
 }
 
 /**
