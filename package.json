@@ -1,0 +1,14 @@
+{
+    "name": "appimage",
+    "version": "0.0.0",
+    "description": "A Node.js implementation of the packaging executables as AppImage",
+    "type": "module",
+    "main": "main.js",
+    "scripts": {
+        "test": "node --test ./main.test.js"
+    },
+    "volta": {
+        "node": "23.11.0",
+        "npm": "11.3.0"
+    }
+}
