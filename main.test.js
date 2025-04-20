@@ -3,7 +3,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { afterEach, describe, it } from 'node:test';
 
-import { createAppDirFolder, createAppRunScript, placeFile } from './main.js';
+import { createAppDirFolder, createAppRunScript, placeFile, createDesktopFile } from './main.js';
 
 describe('AppImage test suite', function () {
 
@@ -26,10 +26,23 @@ describe('AppImage test suite', function () {
         assert.strictEqual(fs.existsSync('./test.AppDir/AppRun'), true);
     });
 
-    it('creates places the application binary', async function () {
+    it('places the binary file into {appName}.AppDir directory', async function () {
         await fs.promises.mkdir('./test.AppDir', { recursive: true });
         await placeFile('./test.AppDir', './test', '/usr/bin/test');
         assert.strictEqual(fs.existsSync('./test.AppDir/usr/bin/test'), true);
+    });
+
+    it('creates desktop file', async function () {
+        await fs.promises.mkdir('./test.AppDir', { recursive: true });
+        await createDesktopFile('./test.AppDir', {
+            Type: 'Application',
+            Name: 'Test',
+            Comment: 'Test application',
+            Exec: 'test',
+            Icon: 'test',
+            Categories: ['Utility'],
+        });
+        assert.strictEqual(fs.existsSync('./test.AppDir/Test.desktop'), true);
     });
 
     afterEach(async function () {

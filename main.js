@@ -77,5 +77,19 @@ export async function placeFile(appDir, srcPath, outPath = '/usr/bin') {
 
 }
 
+export async function createDesktopFile(appDir, desktopConfig) {
+    const desktopFilePath = path.resolve(appDir, `${desktopConfig.Name}.desktop`);
+    const desktopFileContent = `[Desktop Entry]
+Type=${desktopConfig.Type}
+Name=${desktopConfig.Name}
+Comment=${desktopConfig.Comment}
+Exec=${desktopConfig.Exec}
+Icon=${desktopConfig.Icon}
+Categories=${desktopConfig.Categories.join(';')}`;
+
+    await fs.promises.writeFile(desktopFilePath, desktopFileContent);
+}
+
+
 export default appImage;
 
