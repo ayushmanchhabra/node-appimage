@@ -3,7 +3,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { afterEach, describe, it } from 'node:test';
 
-import { createAppDirFolder } from './main.js';
+import { createAppDirFolder, createAppRunScript } from './main.js';
 
 describe('AppImage test suite', function () {
 
@@ -19,6 +19,12 @@ describe('AppImage test suite', function () {
             new Error(`AppDir at file path ${path.resolve('./test.AppDir')} already exists.`),
         );
     })
+
+    it('creates an AppRun script', async function () {
+        await fs.promises.mkdir('./test.AppDir', { recursive: true });
+        await createAppRunScript('./test.AppDir', '');
+        assert.strictEqual(fs.existsSync('./test.AppDir/AppRun'), true);
+    });
 
     afterEach(async function () {
         // Clean up the test directory after `creates an {appName}.AppDir` test

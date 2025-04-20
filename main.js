@@ -35,5 +35,17 @@ export async function createAppDirFolder(appName, outDir) {
     return appDir;
 }
 
+export async function createAppRunScript(appDir, appRunScript = '') {
+    const appRunPath = path.resolve(appDir, 'AppRun');
+
+    if (appRunScript === '') {
+        appRunScript = `#!/bin/sh
+HERE="$(dirname "$(readlink -f "\${0}")")"
+export PATH="\${HERE}/usr/bin:\${PATH}"
+exec test "$@"`;
+    }
+    await fs.promises.writeFile(appRunPath, appRunScript);
+}
+
 export default appImage;
 
