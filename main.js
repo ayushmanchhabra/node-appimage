@@ -1,5 +1,6 @@
 import fs from 'node:fs';
 import path from 'node:path';
+import child_process from 'node:child_process';
 import stream from 'node:stream';
 
 import axios from 'axios';
@@ -7,13 +8,39 @@ import axios from 'axios';
 /**
  * 
  * @param {object} options
- * @param {string} options.appName 
+ * @param {string} options.appName
+ * @param {string} options.outDir
+ * @param {string} options.srcPath
+ * @param {string} options.outPath
+ * @param {object} options.desktopConfig
+ * @param {string} options.desktopConfig.Name
+ * @param {string} options.desktopConfig.Type
+ * @param {string} options.desktopConfig.Comment
+ * @param {string} options.desktopConfig.Exec
+ * @param {string} options.desktopConfig.Icon
+ * @param {string[]} options.desktopConfig.Categories
+ * @returns {Promise<void>} - Resolves when the AppImage is created
  */
-async function appImage({
+export default async function createAppImage({
     appName,
     outDir,
+    srcPath,
+    iconPath,
+    outPath,
+    iconOutPath,
+    desktopConfig = {},
 }) {
-    throw new Error('Not implemented');
+    const appDir = await createAppDirFolder(appName, outDir);
+    await createAppRunScript(appDir);
+    await createDesktopFile(appDir, desktopConfig);
+    await placeFile(appDir, srcPath, outPath);
+    await placeFile(appDir, iconPath, iconOutPath);
+    const appImageToolPath = path.resolve(appDir, 'appimagetool.AppImage')
+    if (!fs.existsSync(appImageToolPath)) {
+        await downloadAppImageTool(appImageToolPath);
+    }
+    await fs.promises.chmod(appImageToolPath, 0o755);
+    child_process.execSync(`${appImageToolPath} ${appDir}`);
 }
 
 /**
@@ -58,26 +85,7 @@ exec test "$@"`;
     }
 
     await fs.promises.writeFile(appRunPath, appRunScript);
-}
-
-/**
- * 
- * @param {string} appDir - Absolute file path of AppDir directory
- * @param {string} srcPath - File path to binary
- * @param {string} outPath - Filepath to place the binary
- * @returns {Promise<void>} - Resolves when the file is placed
- */
-export async function placeFile(appDir, srcPath, outPath = '/usr/bin') {
-
-    /**
-     * @type {string}
-     */
-    const dirPath = path.resolve(appDir, path.dirname('.' + outPath));
-
-    await fs.promises.mkdir(dirPath, { recursive: true });
-
-    await fs.promises.copyFile(path.resolve(srcPath), path.resolve(appDir, '.' + outPath));
-
+    await fs.promises.chmod(appRunPath, 0o755);
 }
 
 export async function createDesktopFile(appDir, desktopConfig) {
@@ -91,6 +99,25 @@ Icon=${desktopConfig.Icon}
 Categories=${desktopConfig.Categories.join(';')}`;
 
     await fs.promises.writeFile(desktopFilePath, desktopFileContent);
+}
+
+/**
+ * 
+ * @param {string} appDir - Absolute file path of AppDir directory
+ * @param {string} srcPath - File path to binary
+ * @param {string} outPath - Filepath to place the binary
+ * @returns {Promise<void>} - Resolves when the file is placed
+ */
+export async function placeFile(appDir, srcPath, outPath) {
+
+    /**
+     * @type {string}
+     */
+    const dirPath = path.resolve(appDir, path.dirname('.' + outPath));
+
+    await fs.promises.mkdir(dirPath, { recursive: true });
+    await fs.promises.copyFile(path.resolve(srcPath), path.resolve(appDir, '.' + outPath));
+
 }
 
 export async function downloadAppImageTool(filePath) {
@@ -113,6 +140,3 @@ export async function downloadAppImageTool(filePath) {
 
     await stream.promises.pipeline(response.data, writeStream);
 }
-
-export default appImage;
-

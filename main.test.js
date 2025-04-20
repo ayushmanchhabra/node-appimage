@@ -3,7 +3,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { afterEach, describe, it } from 'node:test';
 
-import { createAppDirFolder, createAppRunScript, placeFile, createDesktopFile, downloadAppImageTool } from './main.js';
+import createAppImAge, { createAppDirFolder, createAppRunScript, placeFile, createDesktopFile, downloadAppImageTool } from './main.js';
 
 describe('AppImage test suite', function () {
 
@@ -48,6 +48,27 @@ describe('AppImage test suite', function () {
     it('downloads appimagetool from GitHub', async function () {
         await downloadAppImageTool('./appimagetool.AppImage');
         assert.strictEqual(fs.existsSync('./appimagetool.AppImage'), true);
+    });
+
+    it('creates an {appName}.AppImage', async function () {
+        await createAppImAge({
+            appName: 'test',
+            outDir: '.',
+            srcPath: './test',
+            iconPath: './test.png',
+            outPath: '/usr/bin/test',
+            iconOutPath: '/test.png',
+            desktopConfig: {
+                Type: 'Application',
+                Name: 'Test',
+                Comment: 'Test application',
+                Exec: 'test',
+                Icon: 'test',
+                Categories: ['Utility'],
+            },
+        });
+
+        assert.strictEqual(fs.existsSync('./Test-x86_64.AppImage'), true);
     });
 
     afterEach(async function () {
