@@ -3,6 +3,7 @@
     "version": "0.0.0",
     "description": "A Node.js implementation of the packaging executables as AppImage",
     "type": "module",
+    "license": "MIT",
     "main": "main.js",
     "scripts": {
         "test": "node --experimental-test-coverage --test ./main.test.js"
