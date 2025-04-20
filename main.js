@@ -35,7 +35,16 @@ export async function createAppDirFolder(appName, outDir) {
     return appDir;
 }
 
+/**
+ * Create AppRun script.
+ * @param {*} appDir - Absolute file path of AppDir directory
+ * @param {*} appRunScript - AppRun script content
+ * @returns {Promise<void>} - Resolves when the AppRun script is created
+ */
 export async function createAppRunScript(appDir, appRunScript = '') {
+    /**
+     * @type {string}
+     */
     const appRunPath = path.resolve(appDir, 'AppRun');
 
     if (appRunScript === '') {
@@ -44,6 +53,7 @@ HERE="$(dirname "$(readlink -f "\${0}")")"
 export PATH="\${HERE}/usr/bin:\${PATH}"
 exec test "$@"`;
     }
+
     await fs.promises.writeFile(appRunPath, appRunScript);
 }
 
