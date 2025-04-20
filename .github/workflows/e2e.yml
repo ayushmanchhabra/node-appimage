@@ -30,6 +30,4 @@ jobs:
         run: npm ci
       - name: Run tests
         run: npm run test
-      - name: Report Coverage
-        if: always()
-        uses:  davelosert/vitest-coverage-report-action@v2.8.0
+      # TODO: create/use a GitHub Action to parse node:test coverage report and post as comment

@@ -5,7 +5,7 @@
     "type": "module",
     "main": "main.js",
     "scripts": {
-        "test": "node --test ./main.test.js"
+        "test": "node --experimental-test-coverage --test ./main.test.js"
     },
     "volta": {
         "node": "23.11.0",
