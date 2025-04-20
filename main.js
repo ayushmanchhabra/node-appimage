@@ -1,5 +1,8 @@
 import fs from 'node:fs';
 import path from 'node:path';
+import stream from 'node:stream';
+
+import axios from 'axios';
 
 /**
  * 
@@ -90,6 +93,26 @@ Categories=${desktopConfig.Categories.join(';')}`;
     await fs.promises.writeFile(desktopFilePath, desktopFileContent);
 }
 
+export async function downloadAppImageTool(filePath) {
+   
+    let apiResponse = await axios({
+        method: 'get',
+        url: 'https://api.github.com/repos/appimage/appimagetool/releases',
+        responseType: 'json'
+    });
+    
+    let url = `https://github.com/AppImage/appimagetool/releases/download/${apiResponse.data[0].tag_name}/appimagetool-${process.arch === 'x64' ? 'x86_64': 'i686'}.AppImage`
+
+    const writeStream = fs.createWriteStream(filePath);
+
+    const response = await axios({
+        method: 'get',
+        url: url,
+        responseType: 'stream'
+    });
+
+    await stream.promises.pipeline(response.data, writeStream);
+}
 
 export default appImage;
 
