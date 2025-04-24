@@ -1,0 +1,7 @@
+[Desktop Entry]
+Name=demo
+Type=Application
+Exec=demo
+Icon=demo
+Comment=Demo application
+Categories=Utility

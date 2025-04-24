@@ -8,34 +8,24 @@ import axios from 'axios';
 /**
  * 
  * @param {object} options
- * @param {string} options.appName
+ * @param {string} options.srcMap
  * @param {string} options.outDir
- * @param {string} options.srcPath
- * @param {string} options.outPath
- * @param {object} options.desktopConfig
- * @param {string} options.desktopConfig.Name
- * @param {string} options.desktopConfig.Type
- * @param {string} options.desktopConfig.Comment
- * @param {string} options.desktopConfig.Exec
- * @param {string} options.desktopConfig.Icon
- * @param {string[]} options.desktopConfig.Categories
+ * @param {{[key: string]: string}[]} options.files
  * @returns {Promise<void>} - Resolves when the AppImage is created
  */
 export default async function createAppImage({
     appName,
+    srcMap,
     outDir,
-    srcPath,
-    iconPath,
-    outPath,
-    iconOutPath,
-    desktopConfig = {},
 }) {
     const appDir = await createAppDirFolder(appName, outDir);
-    await createAppRunScript(appDir);
-    await createDesktopFile(appDir, desktopConfig);
-    await placeFile(appDir, srcPath, outPath);
-    await placeFile(appDir, iconPath, iconOutPath);
-    const appImageToolPath = path.resolve(appDir, 'appimagetool.AppImage')
+    
+    for (const file of srcMap) {
+        for (const [src, out] of Object.entries(file)) {
+            await placeFile(appDir, src, out);
+        }
+    }
+    const appImageToolPath = path.resolve('./appimagetool.AppImage')
     if (!fs.existsSync(appImageToolPath)) {
         await downloadAppImageTool(appImageToolPath);
     }
@@ -56,49 +46,9 @@ export async function createAppDirFolder(appName, outDir) {
      */
     const appDir = path.resolve(outDir, `${appName}.AppDir`);
 
-    if (fs.existsSync(appDir)) {
-        throw new Error(`AppDir at file path ${appDir} already exists.`);
-    } else {
-        await fs.promises.mkdir(appDir, { recursive: true });
-    }
+    await fs.promises.mkdir(appDir, { recursive: true });
 
     return appDir;
-}
-
-/**
- * Create AppRun script.
- * @param {string} appDir - Absolute file path of AppDir directory
- * @param {string} appRunScript - AppRun script content
- * @returns {Promise<void>} - Resolves when the AppRun script is created
- */
-export async function createAppRunScript(appDir, appRunScript = '') {
-    /**
-     * @type {string}
-     */
-    const appRunPath = path.resolve(appDir, 'AppRun');
-
-    if (appRunScript === '') {
-        appRunScript = `#!/bin/sh
-HERE="$(dirname "$(readlink -f "\${0}")")"
-export PATH="\${HERE}/usr/bin:\${PATH}"
-exec test "$@"`;
-    }
-
-    await fs.promises.writeFile(appRunPath, appRunScript);
-    await fs.promises.chmod(appRunPath, 0o755);
-}
-
-export async function createDesktopFile(appDir, desktopConfig) {
-    const desktopFilePath = path.resolve(appDir, `${desktopConfig.Name}.desktop`);
-    const desktopFileContent = `[Desktop Entry]
-Type=${desktopConfig.Type}
-Name=${desktopConfig.Name}
-Comment=${desktopConfig.Comment}
-Exec=${desktopConfig.Exec}
-Icon=${desktopConfig.Icon}
-Categories=${desktopConfig.Categories.join(';')}`;
-
-    await fs.promises.writeFile(desktopFilePath, desktopFileContent);
 }
 
 /**
@@ -110,13 +60,18 @@ Categories=${desktopConfig.Categories.join(';')}`;
  */
 export async function placeFile(appDir, srcPath, outPath) {
 
+    if (outPath.startsWith('/')) {
+        outPath = outPath.substring(1);
+    }
+
     /**
      * @type {string}
      */
-    const dirPath = path.resolve(appDir, path.dirname('.' + outPath));
+    const dirPath = path.resolve(appDir, path.dirname(outPath));
 
     await fs.promises.mkdir(dirPath, { recursive: true });
-    await fs.promises.copyFile(path.resolve(srcPath), path.resolve(appDir, '.' + outPath));
+    await fs.promises.copyFile(path.resolve(srcPath), path.resolve(appDir, outPath));
+    await fs.promises.chmod(path.resolve(appDir, outPath), 0o755);
 
 }
 
