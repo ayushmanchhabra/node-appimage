@@ -1,1 +1,7 @@
+# runtime
 node_modules
+
+# application
+test/demo
+appimagetool.AppImage
+demo-x86_64.AppImage

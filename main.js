@@ -70,7 +70,7 @@ export async function placeFile(appDir, srcPath, outPath) {
     const dirPath = path.resolve(appDir, path.dirname(outPath));
 
     await fs.promises.mkdir(dirPath, { recursive: true });
-    await fs.promises.copyFile(path.resolve(srcPath), path.resolve(appDir, outPath));
+    await fs.promises.cp(path.resolve(srcPath), path.resolve(appDir, outPath));
     await fs.promises.chmod(path.resolve(appDir, outPath), 0o755);
 
 }

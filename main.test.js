@@ -1,6 +1,5 @@
 import assert from 'node:assert';
 import fs from 'node:fs';
-import path from 'node:path';
 import { afterEach, describe, it } from 'node:test';
 
 import createAppImAge, { createAppDirFolder, placeFile, downloadAppImageTool } from './main.js';
@@ -8,14 +7,14 @@ import createAppImAge, { createAppDirFolder, placeFile, downloadAppImageTool } f
 describe('AppImage test suite', function () {
 
     it('creates an {appName}.AppDir', async function () {
-        await createAppDirFolder('demo', './test');
-        assert.strictEqual(fs.existsSync('./test/demo.AppDir'), true);
+        await createAppDirFolder('Demo', './test');
+        assert.strictEqual(fs.existsSync('./test/Demo.AppDir'), true);
     });
 
     it('places the binary file into {appName}.AppDir directory', async function () {
-        await fs.promises.mkdir('./test/demo.AppDir', { recursive: true });
-        await placeFile('./test/demo.AppDir', './test/demo', '/usr/bin/demo');
-        assert.strictEqual(fs.existsSync('./test/demo.AppDir/usr/bin/demo'), true);
+        await fs.promises.mkdir('./test/Demo.AppDir', { recursive: true });
+        await placeFile('./test/Demo.AppDir', './test/demo', '/usr/bin/demo');
+        assert.strictEqual(fs.existsSync('./test/Demo.AppDir/usr/bin/demo'), true);
     });
 
     it('downloads appimagetool from GitHub', async function () {
@@ -31,7 +30,7 @@ describe('AppImage test suite', function () {
                 { './test/AppRun': '/AppRun' },
                 { './test/demo.desktop': '/demo.desktop' },
                 { './test/demo': '/usr/bin/demo' },
-                { './test/demo.png' : '/demo.png' },
+                { './test/demo.png': '/demo.png' },
             ],
         });
 
@@ -40,6 +39,6 @@ describe('AppImage test suite', function () {
 
     afterEach(async function () {
         // Clean up the test fixture test.AppDir directory after every test
-        // await fs.promises.rm('./test/Demo.AppDir', { recursive: true, force: true });
+        await fs.promises.rm('./test/Demo.AppDir', { recursive: true, force: true });
     });
 });

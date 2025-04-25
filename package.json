@@ -6,6 +6,7 @@
     "license": "MIT",
     "main": "main.js",
     "scripts": {
+        "prep": "clang ./test/demo.c -o ./test/demo",
         "test": "node --experimental-test-coverage --test ./main.test.js"
     },
     "volta": {
