@@ -8,41 +8,41 @@ import createAppImAge, { createAppDirFolder, createAppRunScript, placeFile, crea
 describe('AppImage test suite', function () {
 
     it('creates an {appName}.AppDir', async function () {
-        await createAppDirFolder('test', '.');
-        assert.strictEqual(fs.existsSync('./test.AppDir'), true);
+        await createAppDirFolder('demo', '.');
+        assert.strictEqual(fs.existsSync('./demo.AppDir'), true);
     });
 
     it('throws error if {appName}.AppDir exists', async function () {
-        await fs.promises.mkdir('./test.AppDir', { recursive: true });
+        await fs.promises.mkdir('./demo.AppDir', { recursive: true });
         assert.rejects(
-            createAppDirFolder('test', '.'),
-            new Error(`AppDir at file path ${path.resolve('./test.AppDir')} already exists.`),
+            createAppDirFolder('demo', '.'),
+            new Error(`AppDir at file path ${path.resolve('./demo.AppDir')} already exists.`),
         );
     })
 
     it('creates an AppRun script', async function () {
-        await fs.promises.mkdir('./test.AppDir', { recursive: true });
-        await createAppRunScript('./test.AppDir', '');
-        assert.strictEqual(fs.existsSync('./test.AppDir/AppRun'), true);
+        await fs.promises.mkdir('./demo.AppDir', { recursive: true });
+        await createAppRunScript('./demo.AppDir', '');
+        assert.strictEqual(fs.existsSync('./demo.AppDir/AppRun'), true);
     });
 
     it('places the binary file into {appName}.AppDir directory', async function () {
-        await fs.promises.mkdir('./test.AppDir', { recursive: true });
-        await placeFile('./test.AppDir', './test', '/usr/bin/test');
-        assert.strictEqual(fs.existsSync('./test.AppDir/usr/bin/test'), true);
+        await fs.promises.mkdir('./demo.AppDir', { recursive: true });
+        await placeFile('./demo.AppDir', './demo', '/usr/bin/demo');
+        assert.strictEqual(fs.existsSync('./demo.AppDir/usr/bin/demo'), true);
     });
 
     it('creates desktop file', async function () {
-        await fs.promises.mkdir('./test.AppDir', { recursive: true });
-        await createDesktopFile('./test.AppDir', {
+        await fs.promises.mkdir('./demo.AppDir', { recursive: true });
+        await createDesktopFile('./demo.AppDir', {
             Type: 'Application',
             Name: 'Test',
             Comment: 'Test application',
-            Exec: 'test',
-            Icon: 'test',
+            Exec: 'demo',
+            Icon: 'demo',
             Categories: ['Utility'],
         });
-        assert.strictEqual(fs.existsSync('./test.AppDir/Test.desktop'), true);
+        assert.strictEqual(fs.existsSync('./demo.AppDir/Test.desktop'), true);
     });
 
     it('downloads appimagetool from GitHub', async function () {
@@ -52,27 +52,27 @@ describe('AppImage test suite', function () {
 
     it('creates an {appName}.AppImage', async function () {
         await createAppImAge({
-            appName: 'test',
+            appName: 'demo',
             outDir: '.',
-            srcPath: './test',
-            iconPath: './test.png',
-            outPath: '/usr/bin/test',
-            iconOutPath: '/test.png',
+            srcPath: './demo',
+            iconPath: './demo.png',
+            outPath: '/usr/bin/demo',
+            iconOutPath: '/demo.png',
             desktopConfig: {
                 Type: 'Application',
-                Name: 'Test',
-                Comment: 'Test application',
-                Exec: 'test',
-                Icon: 'test',
+                Name: 'demo',
+                Comment: 'Demo application',
+                Exec: 'demo',
+                Icon: 'demo',
                 Categories: ['Utility'],
             },
         });
 
-        assert.strictEqual(fs.existsSync('./Test-x86_64.AppImage'), true);
+        assert.strictEqual(fs.existsSync('./demo-x86_64.AppImage'), true);
     });
 
     afterEach(async function () {
         // Clean up the test fixture test.AppDir directory after every test
-        await fs.promises.rm('./test.AppDir', { recursive: true, force: true });
+        await fs.promises.rm('./demo.AppDir', { recursive: true, force: true });
     });
 });

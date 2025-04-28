@@ -81,7 +81,7 @@ export async function createAppRunScript(appDir, appRunScript = '') {
         appRunScript = `#!/bin/sh
 HERE="$(dirname "$(readlink -f "\${0}")")"
 export PATH="\${HERE}/usr/bin:\${PATH}"
-exec test "$@"`;
+exec demo "$@"`;
     }
 
     await fs.promises.writeFile(appRunPath, appRunScript);
