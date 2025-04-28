@@ -1,4 +1,5 @@
 import assert from 'node:assert';
+import child_process from 'node:child_process';
 import fs from 'node:fs';
 import path from 'node:path';
 import { afterEach, describe, it } from 'node:test';
@@ -50,7 +51,7 @@ describe('AppImage test suite', function () {
         assert.strictEqual(fs.existsSync('./tests/fixtures/appimagetool.AppImage'), true);
     });
 
-    it('creates an {appName}.AppImage', async function () {
+    it('creates an {appName}.AppImage and executes it correctly', async function () {
         await createAppImAge({
             appName: 'demo',
             outDir: './tests/fixtures/demo.AppDir',
@@ -69,6 +70,7 @@ describe('AppImage test suite', function () {
         });
 
         assert.strictEqual(fs.existsSync('./demo-x86_64.AppImage'), true);
+        assert.strictEqual(child_process.execSync('./demo-x86_64.AppImage').toString(), 'Hello, World!\n');
     });
 
     afterEach(async function () {
