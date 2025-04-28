@@ -6,7 +6,7 @@
     "license": "MIT",
     "main": "main.js",
     "scripts": {
-        "test": "node --experimental-test-coverage --test ./main.test.js"
+        "test": "node --experimental-test-coverage --test ./tests/specs/main.test.js"
     },
     "volta": {
         "node": "23.11.0",

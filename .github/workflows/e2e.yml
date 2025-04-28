@@ -28,7 +28,7 @@ jobs:
       - name: Install dependencies
         run: npm ci
       - name: Build test binary
-        run: clang ./demo.c -o ./demo
+        run: clang ./tests/fixtures/demo.c -o ./tests/fixtures/demo
       - name: Run tests
         run: npm run test
       # TODO: create/use a GitHub Action to parse node:test coverage report and post as comment
