@@ -7,14 +7,14 @@ import createAppImAge, { createAppDirFolder, placeFile, downloadAppImageTool } f
 describe('AppImage test suite', function () {
 
     it('creates an {appName}.AppDir', async function () {
-        await createAppDirFolder('Demo', './test');
-        assert.strictEqual(fs.existsSync('./test/Demo.AppDir'), true);
+        await createAppDirFolder('demo', './test');
+        assert.strictEqual(fs.existsSync('./test/demo.AppDir'), true);
     });
 
     it('places the binary file into {appName}.AppDir directory', async function () {
-        await fs.promises.mkdir('./test/Demo.AppDir', { recursive: true });
-        await placeFile('./test/Demo.AppDir', './test/demo', '/usr/bin/demo');
-        assert.strictEqual(fs.existsSync('./test/Demo.AppDir/usr/bin/demo'), true);
+        await fs.promises.mkdir('./test/demo.AppDir', { recursive: true });
+        await placeFile('./test/demo.AppDir', './test/demo', '/usr/bin/demo');
+        assert.strictEqual(fs.existsSync('./test/demo.AppDir/usr/bin/demo'), true);
     });
 
     it('downloads appimagetool from GitHub', async function () {
@@ -24,7 +24,7 @@ describe('AppImage test suite', function () {
 
     it('creates an {appName}.AppImage', async function () {
         await createAppImAge({
-            appName: 'Demo',
+            appName: 'demo',
             outDir: './test',
             srcMap: [
                 { './test/AppRun': '/AppRun' },
@@ -34,11 +34,11 @@ describe('AppImage test suite', function () {
             ],
         });
 
-        assert.strictEqual(fs.existsSync('./demo-x86_64.AppImage'), true);
+        assert.strictEqual(fs.existsSync('./test/demo.AppImage'), true);
     });
 
     afterEach(async function () {
         // Clean up the test fixture test.AppDir directory after every test
-        await fs.promises.rm('./test/Demo.AppDir', { recursive: true, force: true });
+        // await fs.promises.rm('./test/demo.AppDir', { recursive: true, force: true });
     });
 });

@@ -30,7 +30,7 @@ export default async function createAppImage({
         await downloadAppImageTool(appImageToolPath);
     }
     await fs.promises.chmod(appImageToolPath, 0o755);
-    child_process.execSync(`${appImageToolPath} ${appDir}`);
+    child_process.execSync(`${appImageToolPath} ${appDir} ${path.dirname(appDir)}/${appName}.AppImage`);
 }
 
 /**
