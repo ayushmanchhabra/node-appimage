@@ -4,7 +4,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { afterEach, describe, it } from 'node:test';
 
-import createAppImAge, { createAppDirFolder, createAppRunScript, placeFile, createDesktopFile, downloadAppImageTool } from '../../main.js';
+import createAppImAge, { createAppDirFolder, createAppRunScript, placeFile, downloadAppImageTool } from '../../main.js';
 
 describe('AppImage test suite', function () {
 
@@ -46,14 +46,9 @@ describe('AppImage test suite', function () {
             iconPath: './tests/fixtures/demo.png',
             outPath: '/usr/bin/demo',
             iconOutPath: '/demo.png',
-            desktopConfig: {
-                Type: 'Application',
-                Name: 'demo',
-                Comment: 'Demo application',
-                Exec: 'demo',
-                Icon: 'demo',
-                Categories: ['Utility'],
-            },
+            srcMap: {
+                './tests/fixtures/demo.desktop': '/demo.desktop',
+            }
         });
 
         assert.strictEqual(fs.existsSync('./demo-x86_64.AppImage'), true);
