@@ -33,19 +33,6 @@ describe('AppImage test suite', function () {
         assert.strictEqual(fs.existsSync('./tests/fixtures/demo.AppDir/usr/bin/demo'), true);
     });
 
-    it('creates desktop file', async function () {
-        await fs.promises.mkdir('./tests/fixtures/demo.AppDir', { recursive: true });
-        await createDesktopFile('./tests/fixtures/demo.AppDir', {
-            Type: 'Application',
-            Name: 'test',
-            Comment: 'Test application',
-            Exec: 'demo',
-            Icon: 'demo',
-            Categories: ['Utility'],
-        });
-        assert.strictEqual(fs.existsSync('./tests/fixtures/demo.AppDir/test.desktop'), true);
-    });
-
     it('downloads appimagetool from GitHub', async function () {
         await downloadAppImageTool('./tests/fixtures/appimagetool.AppImage');
         assert.strictEqual(fs.existsSync('./tests/fixtures/appimagetool.AppImage'), true);
@@ -75,6 +62,6 @@ describe('AppImage test suite', function () {
 
     afterEach(async function () {
         // Clean up the test fixture test.AppDir directory after every test
-        await fs.promises.rm('./tests/fixtures/demo.AppDir', { recursive: true, force: true });
+        // await fs.promises.rm('./tests/fixtures/demo.AppDir', { recursive: true, force: true });
     });
 });

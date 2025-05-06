@@ -12,13 +12,7 @@ import axios from 'axios';
  * @param {string} options.outDir
  * @param {string} options.srcPath
  * @param {string} options.outPath
- * @param {object} options.desktopConfig
- * @param {string} options.desktopConfig.Name
- * @param {string} options.desktopConfig.Type
- * @param {string} options.desktopConfig.Comment
- * @param {string} options.desktopConfig.Exec
- * @param {string} options.desktopConfig.Icon
- * @param {string[]} options.desktopConfig.Categories
+ * @param {{[key: string]: string}} options.srcMap
  * @returns {Promise<void>} - Resolves when the AppImage is created
  */
 export default async function createAppImage({
@@ -28,11 +22,18 @@ export default async function createAppImage({
     iconPath,
     outPath,
     iconOutPath,
-    desktopConfig = {},
+    srcMap = {},
 }) {
     const appDir = await createAppDirFolder(appName, outDir);
+    for (const [src, dest] of Object.entries(srcMap)) {
+        console.log(`Copying ${src} to ${dest}`);
+        const srcFilePath = path.resolve(src);
+        const destFilePath = path.resolve(appDir, '.' + dest);
+        await fs.promises.mkdir(path.dirname(destFilePath), { recursive: true });
+        await fs.promises.copyFile(srcFilePath, destFilePath);
+        await fs.promises.chmod(destFilePath, 0o755);
+    }
     await createAppRunScript(appDir);
-    await createDesktopFile(appDir, desktopConfig);
     await placeFile(appDir, srcPath, outPath);
     await placeFile(appDir, iconPath, iconOutPath);
     const appImageToolPath = path.resolve(appDir, 'appimagetool.AppImage')
@@ -86,19 +87,6 @@ exec demo "$@"`;
 
     await fs.promises.writeFile(appRunPath, appRunScript);
     await fs.promises.chmod(appRunPath, 0o755);
-}
-
-export async function createDesktopFile(appDir, desktopConfig) {
-    const desktopFilePath = path.resolve(appDir, `${desktopConfig.Name}.desktop`);
-    const desktopFileContent = `[Desktop Entry]
-Type=${desktopConfig.Type}
-Name=${desktopConfig.Name}
-Comment=${desktopConfig.Comment}
-Exec=${desktopConfig.Exec}
-Icon=${desktopConfig.Icon}
-Categories=${desktopConfig.Categories.join(';')}`;
-
-    await fs.promises.writeFile(desktopFilePath, desktopFileContent);
 }
 
 /**
