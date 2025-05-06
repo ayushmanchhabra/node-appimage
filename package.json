@@ -6,7 +6,9 @@
     "license": "MIT",
     "main": "main.js",
     "scripts": {
-        "test": "node --experimental-test-coverage --test ./tests/specs/main.test.js"
+        "prep": "clang ./tests/fixtures/demo.c -o ./tests/fixtures/demo",
+        "test": "node --experimental-test-coverage --test ./tests/specs/main.test.js",
+        "demo": "node ./tests/specs/demo.js"
     },
     "volta": {
         "node": "23.11.0",

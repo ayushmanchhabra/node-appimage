@@ -4,7 +4,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { afterEach, describe, it } from 'node:test';
 
-import createAppImAge, { createAppDirFolder, createAppRunScript, placeFile, createDesktopFile, downloadAppImageTool } from '../../main.js';
+import createAppImAge, { createAppDirFolder, downloadAppImageTool } from '../../main.js';
 
 describe('AppImage test suite', function () {
 
@@ -21,31 +21,6 @@ describe('AppImage test suite', function () {
         );
     })
 
-    it('creates an AppRun script', async function () {
-        await fs.promises.mkdir('./tests/fixtures/demo.AppDir', { recursive: true });
-        await createAppRunScript('./tests/fixtures/demo.AppDir', '');
-        assert.strictEqual(fs.existsSync('./tests/fixtures/demo.AppDir/AppRun'), true);
-    });
-
-    it('places the binary file into {appName}.AppDir directory', async function () {
-        await fs.promises.mkdir('./tests/fixtures/demo.AppDir', { recursive: true });
-        await placeFile('./tests/fixtures/demo.AppDir', './tests/fixtures/demo', '/usr/bin/demo');
-        assert.strictEqual(fs.existsSync('./tests/fixtures/demo.AppDir/usr/bin/demo'), true);
-    });
-
-    it('creates desktop file', async function () {
-        await fs.promises.mkdir('./tests/fixtures/demo.AppDir', { recursive: true });
-        await createDesktopFile('./tests/fixtures/demo.AppDir', {
-            Type: 'Application',
-            Name: 'test',
-            Comment: 'Test application',
-            Exec: 'demo',
-            Icon: 'demo',
-            Categories: ['Utility'],
-        });
-        assert.strictEqual(fs.existsSync('./tests/fixtures/demo.AppDir/test.desktop'), true);
-    });
-
     it('downloads appimagetool from GitHub', async function () {
         await downloadAppImageTool('./tests/fixtures/appimagetool.AppImage');
         assert.strictEqual(fs.existsSync('./tests/fixtures/appimagetool.AppImage'), true);
@@ -54,23 +29,18 @@ describe('AppImage test suite', function () {
     it('creates an {appName}.AppImage and executes it correctly', async function () {
         await createAppImAge({
             appName: 'demo',
-            outDir: './tests/fixtures/demo.AppDir',
-            srcPath: './tests/fixtures/demo',
-            iconPath: './tests/fixtures/demo.png',
-            outPath: '/usr/bin/demo',
-            iconOutPath: '/demo.png',
-            desktopConfig: {
-                Type: 'Application',
-                Name: 'demo',
-                Comment: 'Demo application',
-                Exec: 'demo',
-                Icon: 'demo',
-                Categories: ['Utility'],
-            },
+            outDir: './tests/fixtures',
+            appImagePath: './tests/fixtures/appimagetool.AppImage',
+            srcMap: {
+                './tests/fixtures/AppRun': '/AppRun',
+                './tests/fixtures/demo': '/usr/bin/demo',
+                './tests/fixtures/demo.desktop': '/demo.desktop',
+                './tests/fixtures/demo.png': '/demo.png',
+            }
         });
 
-        assert.strictEqual(fs.existsSync('./demo-x86_64.AppImage'), true);
-        assert.strictEqual(child_process.execSync('./demo-x86_64.AppImage').toString(), 'Hello, World!\n');
+        assert.strictEqual(fs.existsSync('./tests/fixtures/demo.AppImage'), true);
+        assert.strictEqual(child_process.execSync('./tests/fixtures/demo.AppImage').toString(), 'Hello, World!\n');
     });
 
     afterEach(async function () {
