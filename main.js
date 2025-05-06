@@ -10,14 +10,14 @@ import axios from 'axios';
  * @param {object} options
  * @param {string} options.appName
  * @param {string} options.outDir
+ * @param {string} options.appImagePath
  * @param {{[key: string]: string}} options.srcMap
  * @returns {Promise<void>} - Resolves when the AppImage is created
  */
 export default async function createAppImage({
     appName,
     outDir,
-    iconPath,
-    iconOutPath,
+    appImagePath,
     srcMap = {},
 }) {
     const appDir = await createAppDirFolder(appName, outDir);
@@ -30,8 +30,7 @@ export default async function createAppImage({
         await fs.promises.chmod(destFilePath, 0o755);
     }
     await createAppRunScript(appDir);
-    await placeFile(appDir, iconPath, iconOutPath);
-    const appImageToolPath = path.resolve(appDir, 'appimagetool.AppImage')
+    const appImageToolPath = path.resolve(appImagePath)
     if (!fs.existsSync(appImageToolPath)) {
         await downloadAppImageTool(appImageToolPath);
     }
@@ -82,25 +81,6 @@ exec demo "$@"`;
 
     await fs.promises.writeFile(appRunPath, appRunScript);
     await fs.promises.chmod(appRunPath, 0o755);
-}
-
-/**
- * 
- * @param {string} appDir - Absolute file path of AppDir directory
- * @param {string} srcPath - File path to binary
- * @param {string} outPath - Filepath to place the binary
- * @returns {Promise<void>} - Resolves when the file is placed
- */
-export async function placeFile(appDir, srcPath, outPath) {
-
-    /**
-     * @type {string}
-     */
-    const dirPath = path.resolve(appDir, path.dirname('.' + outPath));
-
-    await fs.promises.mkdir(dirPath, { recursive: true });
-    await fs.promises.copyFile(path.resolve(srcPath), path.resolve(appDir, '.' + outPath));
-
 }
 
 export async function downloadAppImageTool(filePath) {

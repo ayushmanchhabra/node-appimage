@@ -5,11 +5,11 @@ import createAppImage from "../../main.js";
 await createAppImage({
     appName: 'demo',
     outDir: './tests/fixtures',
-    iconPath: './tests/fixtures/demo.png',
-    iconOutPath: '/demo.png',
+    appImagePath: './tests/fixtures/appimagetool.AppImage',
     srcMap: {
         './tests/fixtures/demo': '/usr/bin/demo',
         './tests/fixtures/demo.desktop': '/demo.desktop',
+        './tests/fixtures/demo.png': '/demo.png',
     }
 });
 

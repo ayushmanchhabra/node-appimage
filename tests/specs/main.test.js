@@ -4,7 +4,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { afterEach, describe, it } from 'node:test';
 
-import createAppImAge, { createAppDirFolder, createAppRunScript, placeFile, downloadAppImageTool } from '../../main.js';
+import createAppImAge, { createAppDirFolder, createAppRunScript, downloadAppImageTool } from '../../main.js';
 
 describe('AppImage test suite', function () {
 
@@ -27,12 +27,6 @@ describe('AppImage test suite', function () {
         assert.strictEqual(fs.existsSync('./tests/fixtures/demo.AppDir/AppRun'), true);
     });
 
-    it('places the binary file into {appName}.AppDir directory', async function () {
-        await fs.promises.mkdir('./tests/fixtures/demo.AppDir', { recursive: true });
-        await placeFile('./tests/fixtures/demo.AppDir', './tests/fixtures/demo', '/usr/bin/demo');
-        assert.strictEqual(fs.existsSync('./tests/fixtures/demo.AppDir/usr/bin/demo'), true);
-    });
-
     it('downloads appimagetool from GitHub', async function () {
         await downloadAppImageTool('./tests/fixtures/appimagetool.AppImage');
         assert.strictEqual(fs.existsSync('./tests/fixtures/appimagetool.AppImage'), true);
@@ -42,13 +36,11 @@ describe('AppImage test suite', function () {
         await createAppImAge({
             appName: 'demo',
             outDir: './tests/fixtures/demo.AppDir',
-            srcPath: './tests/fixtures/demo',
-            iconPath: './tests/fixtures/demo.png',
-            outPath: '/usr/bin/demo',
-            iconOutPath: '/demo.png',
+            appImagePath: './tests/fixtures/appimagetool.AppImage',
             srcMap: {
                 './tests/fixtures/demo': '/usr/bin/demo',
                 './tests/fixtures/demo.desktop': '/demo.desktop',
+                './tests/fixtures/demo.png': '/demo.png',
             }
         });
 
