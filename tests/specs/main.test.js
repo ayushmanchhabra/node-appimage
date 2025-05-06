@@ -4,7 +4,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { afterEach, describe, it } from 'node:test';
 
-import createAppImAge, { createAppDirFolder, createAppRunScript, downloadAppImageTool } from '../../main.js';
+import createAppImAge, { createAppDirFolder, downloadAppImageTool } from '../../main.js';
 
 describe('AppImage test suite', function () {
 
@@ -20,12 +20,6 @@ describe('AppImage test suite', function () {
             new Error(`AppDir at file path ${path.resolve('./tests/fixtures/demo.AppDir')} already exists.`),
         );
     })
-
-    it('creates an AppRun script', async function () {
-        await fs.promises.mkdir('./tests/fixtures/demo.AppDir', { recursive: true });
-        await createAppRunScript('./tests/fixtures/demo.AppDir', '');
-        assert.strictEqual(fs.existsSync('./tests/fixtures/demo.AppDir/AppRun'), true);
-    });
 
     it('downloads appimagetool from GitHub', async function () {
         await downloadAppImageTool('./tests/fixtures/appimagetool.AppImage');
@@ -44,8 +38,8 @@ describe('AppImage test suite', function () {
             }
         });
 
-        assert.strictEqual(fs.existsSync('./demo-x86_64.AppImage'), true);
-        assert.strictEqual(child_process.execSync('./demo-x86_64.AppImage').toString(), 'Hello, World!\n');
+        assert.strictEqual(fs.existsSync('./tests/fixtures/demo.AppImage'), true);
+        assert.strictEqual(child_process.execSync('./tests/fixtures/demo.AppImage').toString(), 'Hello, World!\n');
     });
 
     afterEach(async function () {

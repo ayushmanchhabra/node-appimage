@@ -22,20 +22,18 @@ export default async function createAppImage({
 }) {
     const appDir = await createAppDirFolder(appName, outDir);
     for (const [src, dest] of Object.entries(srcMap)) {
-        console.log(`Copying ${src} to ${dest}`);
         const srcFilePath = path.resolve(src);
         const destFilePath = path.resolve(appDir, '.' + dest);
         await fs.promises.mkdir(path.dirname(destFilePath), { recursive: true });
         await fs.promises.copyFile(srcFilePath, destFilePath);
         await fs.promises.chmod(destFilePath, 0o755);
     }
-    await createAppRunScript(appDir);
     const appImageToolPath = path.resolve(appImagePath)
     if (!fs.existsSync(appImageToolPath)) {
         await downloadAppImageTool(appImageToolPath);
     }
     await fs.promises.chmod(appImageToolPath, 0o755);
-    child_process.execSync(`${appImageToolPath} ${appDir}`);
+    child_process.execSync(`${appImageToolPath} ${appDir} ${outDir}/${appName}.AppImage`);
 }
 
 /**
@@ -58,29 +56,6 @@ export async function createAppDirFolder(appName, outDir) {
     }
 
     return appDir;
-}
-
-/**
- * Create AppRun script.
- * @param {string} appDir - Absolute file path of AppDir directory
- * @param {string} appRunScript - AppRun script content
- * @returns {Promise<void>} - Resolves when the AppRun script is created
- */
-export async function createAppRunScript(appDir, appRunScript = '') {
-    /**
-     * @type {string}
-     */
-    const appRunPath = path.resolve(appDir, 'AppRun');
-
-    if (appRunScript === '') {
-        appRunScript = `#!/bin/sh
-HERE="$(dirname "$(readlink -f "\${0}")")"
-export PATH="\${HERE}/usr/bin:\${PATH}"
-exec demo "$@"`;
-    }
-
-    await fs.promises.writeFile(appRunPath, appRunScript);
-    await fs.promises.chmod(appRunPath, 0o755);
 }
 
 export async function downloadAppImageTool(filePath) {
