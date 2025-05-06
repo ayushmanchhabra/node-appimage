@@ -29,7 +29,7 @@ describe('AppImage test suite', function () {
     it('creates an {appName}.AppImage and executes it correctly', async function () {
         await createAppImAge({
             appName: 'demo',
-            outDir: './tests/fixtures/demo.AppDir',
+            outDir: './tests/fixtures',
             appImagePath: './tests/fixtures/appimagetool.AppImage',
             srcMap: {
                 './tests/fixtures/demo': '/usr/bin/demo',
