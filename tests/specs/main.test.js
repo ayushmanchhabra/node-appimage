@@ -57,6 +57,6 @@ describe('AppImage test suite', function () {
 
     afterEach(async function () {
         // Clean up the test fixture test.AppDir directory after every test
-        // await fs.promises.rm('./tests/fixtures/demo.AppDir', { recursive: true, force: true });
+        await fs.promises.rm('./tests/fixtures/demo.AppDir', { recursive: true, force: true });
     });
 });
