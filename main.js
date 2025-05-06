@@ -12,7 +12,7 @@ import axios from 'axios';
  * @param {string} options.outDir
  * @param {string} options.appImagePath
  * @param {{[key: string]: string}} options.srcMap
- * @returns {Promise<void>} - Resolves when the AppImage is created
+ * @returns {Promise<void>} - Resolves when the AppImage is created at `${outDir}/${appName}.AppImage`
  */
 export default async function createAppImage({
     appName,
