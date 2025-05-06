@@ -10,17 +10,13 @@ import axios from 'axios';
  * @param {object} options
  * @param {string} options.appName
  * @param {string} options.outDir
- * @param {string} options.srcPath
- * @param {string} options.outPath
  * @param {{[key: string]: string}} options.srcMap
  * @returns {Promise<void>} - Resolves when the AppImage is created
  */
 export default async function createAppImage({
     appName,
     outDir,
-    srcPath,
     iconPath,
-    outPath,
     iconOutPath,
     srcMap = {},
 }) {
@@ -34,7 +30,6 @@ export default async function createAppImage({
         await fs.promises.chmod(destFilePath, 0o755);
     }
     await createAppRunScript(appDir);
-    await placeFile(appDir, srcPath, outPath);
     await placeFile(appDir, iconPath, iconOutPath);
     const appImageToolPath = path.resolve(appDir, 'appimagetool.AppImage')
     if (!fs.existsSync(appImageToolPath)) {

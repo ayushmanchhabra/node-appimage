@@ -47,6 +47,7 @@ describe('AppImage test suite', function () {
             outPath: '/usr/bin/demo',
             iconOutPath: '/demo.png',
             srcMap: {
+                './tests/fixtures/demo': '/usr/bin/demo',
                 './tests/fixtures/demo.desktop': '/demo.desktop',
             }
         });
