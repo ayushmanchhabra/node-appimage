@@ -1,6 +1,6 @@
 # appimage
 
-A Node.js implementation of the packaging executables as AppImage.
+A Node.js implementation of packaging a Linux binary as an AppImage.
 
 ## Getting Started
 
@@ -21,6 +21,10 @@ await createAppImage({
 ```
 
 There is a demo AppImage inside the repo. To assemble it, clone the repo, run `npm run prep`, `npm run demo` and execute the AppImage at `./tests/fixtures/demo.AppImage`
+
+## Contributing
+
+This project is in its early stages, expect bugs. File an issue or pull request accordingly.
 
 ## LICENSE
 
