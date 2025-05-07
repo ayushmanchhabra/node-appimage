@@ -1,6 +1,6 @@
 {
     "name": "appimage",
-    "version": "0.2.0",
+    "version": "0.2.1",
     "description": "A Node.js implementation of the packaging executables as AppImage",
     "type": "module",
     "main": "main.js",
