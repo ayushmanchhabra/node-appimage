@@ -6,12 +6,12 @@ import stream from 'node:stream';
 import axios from 'axios';
 
 /**
- * 
+ * Creates an AppImage for a given application.
  * @param {object} options
- * @param {string} options.appName
- * @param {string} options.outDir
- * @param {string} options.appImagePath
- * @param {{[key: string]: string}} options.srcMap
+ * @param {string} options.appName - Name of the application
+ * @param {string} options.outDir - Output directory for the AppDir
+ * @param {string} options.appImagePath - Path to the AppImage tool
+ * @param {{[key: string]: string}} options.srcMap - Map of source files to destination paths in the AppDir
  * @returns {Promise<void>} - Resolves when the AppImage is created at `${outDir}/${appName}.AppImage`
  */
 export default async function createAppImage({
@@ -22,16 +22,10 @@ export default async function createAppImage({
 }) {
     const appDir = await createAppDirFolder(appName, outDir);
     for (const [src, dest] of Object.entries(srcMap)) {
-        const srcFilePath = path.resolve(src);
-        const destFilePath = path.resolve(appDir, '.' + dest);
-        await fs.promises.mkdir(path.dirname(destFilePath), { recursive: true });
-        await fs.promises.copyFile(srcFilePath, destFilePath);
-        await fs.promises.chmod(destFilePath, 0o755);
+        await placeFile(appDir, src, dest);
     }
     const appImageToolPath = path.resolve(appImagePath)
-    if (!fs.existsSync(appImageToolPath)) {
-        await downloadAppImageTool(appImageToolPath);
-    }
+    await downloadAppImageTool(appImageToolPath);
     await fs.promises.chmod(appImageToolPath, 0o755);
     child_process.execSync(`${appImageToolPath} ${appDir} ${path.resolve(outDir, `${appName}.AppImage`)}`);
 }
@@ -58,7 +52,31 @@ export async function createAppDirFolder(appName, outDir) {
     return appDir;
 }
 
+/**
+ * Place a file in the AppDir.
+ * @param {string} appDir - The AppDir directory
+ * @param {string} src - The source file path
+ * @param {string} dest - The destination file path relative to the AppDir
+ * @returns {Promise<void>} - Resolves when the file is placed
+ */
+export async function placeFile (appDir, src, dest) {
+    const srcFilePath = path.resolve(src);
+        const destFilePath = path.resolve(appDir, '.' + dest);
+        await fs.promises.mkdir(path.dirname(destFilePath), { recursive: true });
+        await fs.promises.copyFile(srcFilePath, destFilePath);
+        await fs.promises.chmod(destFilePath, 0o755);
+}
+
+/**
+ * Download the AppImage tool if it doesn't exist.
+ * @param {string} filePath - The file path to cache the AppImage tool at
+ * @returns {Promise<void>} - Resolves when the AppImage tool is downloaded and cached
+ */
 export async function downloadAppImageTool(filePath) {
+
+    if (fs.existsSync(filePath)) {
+        return;
+    }
    
     let apiResponse = await axios({
         method: 'get',

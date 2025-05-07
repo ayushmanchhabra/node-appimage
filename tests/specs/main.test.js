@@ -4,7 +4,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { afterEach, describe, it } from 'node:test';
 
-import createAppImAge, { createAppDirFolder, downloadAppImageTool } from '../../main.js';
+import createAppImage, { createAppDirFolder, downloadAppImageTool, placeFile } from '../../main.js';
 
 describe('AppImage test suite', function () {
 
@@ -21,13 +21,19 @@ describe('AppImage test suite', function () {
         );
     })
 
+    it('places the binary file into {appName}.AppDir directory', async function () {
+        await fs.promises.mkdir('./tests/fixtures/demo.AppDir', { recursive: true });
+        await placeFile('./tests/fixtures/demo.AppDir', './tests/fixtures/demo', '/usr/bin/demo');
+        assert.strictEqual(fs.existsSync('./tests/fixtures/demo.AppDir/usr/bin/demo'), true);
+    });
+
     it('downloads appimagetool from GitHub', async function () {
         await downloadAppImageTool('./tests/fixtures/appimagetool.AppImage');
         assert.strictEqual(fs.existsSync('./tests/fixtures/appimagetool.AppImage'), true);
     });
 
     it('creates an {appName}.AppImage and executes it correctly', async function () {
-        await createAppImAge({
+        await createAppImage({
             appName: 'demo',
             outDir: './tests/fixtures',
             appImagePath: './tests/fixtures/appimagetool.AppImage',
