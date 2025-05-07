@@ -4,7 +4,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { afterEach, describe, it } from 'node:test';
 
-import createAppImAge, { createAppDirFolder, downloadAppImageTool, placeFile } from '../../main.js';
+import createAppImage, { createAppDirFolder, downloadAppImageTool, placeFile } from '../../main.js';
 
 describe('AppImage test suite', function () {
 
@@ -33,7 +33,7 @@ describe('AppImage test suite', function () {
     });
 
     it('creates an {appName}.AppImage and executes it correctly', async function () {
-        await createAppImAge({
+        await createAppImage({
             appName: 'demo',
             outDir: './tests/fixtures',
             appImagePath: './tests/fixtures/appimagetool.AppImage',
