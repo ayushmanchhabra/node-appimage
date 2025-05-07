@@ -8,10 +8,10 @@ import axios from 'axios';
 /**
  * 
  * @param {object} options
- * @param {string} options.appName
- * @param {string} options.outDir
- * @param {string} options.appImagePath
- * @param {{[key: string]: string}} options.srcMap
+ * @param {string} options.appName - Name of the application
+ * @param {string} options.outDir - Output directory for the AppDir
+ * @param {string} options.appImagePath - Path to the AppImage tool
+ * @param {{[key: string]: string}} options.srcMap - Map of source files to destination paths in the AppDir
  * @returns {Promise<void>} - Resolves when the AppImage is created at `${outDir}/${appName}.AppImage`
  */
 export default async function createAppImage({
@@ -22,11 +22,7 @@ export default async function createAppImage({
 }) {
     const appDir = await createAppDirFolder(appName, outDir);
     for (const [src, dest] of Object.entries(srcMap)) {
-        const srcFilePath = path.resolve(src);
-        const destFilePath = path.resolve(appDir, '.' + dest);
-        await fs.promises.mkdir(path.dirname(destFilePath), { recursive: true });
-        await fs.promises.copyFile(srcFilePath, destFilePath);
-        await fs.promises.chmod(destFilePath, 0o755);
+        await placeFile(appDir, src, dest);
     }
     const appImageToolPath = path.resolve(appImagePath)
     await downloadAppImageTool(appImageToolPath);
@@ -54,6 +50,21 @@ export async function createAppDirFolder(appName, outDir) {
     }
 
     return appDir;
+}
+
+/**
+ * Place a file in the AppDir.
+ * @param {*} appDir - The AppDir directory
+ * @param {*} src - The source file path
+ * @param {*} dest - The destination file path relative to the AppDir
+ * @returns {Promise<void>} - Resolves when the file is placed
+ */
+export async function placeFile (appDir, src, dest) {
+    const srcFilePath = path.resolve(src);
+        const destFilePath = path.resolve(appDir, '.' + dest);
+        await fs.promises.mkdir(path.dirname(destFilePath), { recursive: true });
+        await fs.promises.copyFile(srcFilePath, destFilePath);
+        await fs.promises.chmod(destFilePath, 0o755);
 }
 
 export async function downloadAppImageTool(filePath) {
