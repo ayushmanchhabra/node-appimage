@@ -29,9 +29,7 @@ export default async function createAppImage({
         await fs.promises.chmod(destFilePath, 0o755);
     }
     const appImageToolPath = path.resolve(appImagePath)
-    if (!fs.existsSync(appImageToolPath)) {
-        await downloadAppImageTool(appImageToolPath);
-    }
+    await downloadAppImageTool(appImageToolPath);
     await fs.promises.chmod(appImageToolPath, 0o755);
     child_process.execSync(`${appImageToolPath} ${appDir} ${path.resolve(outDir, `${appName}.AppImage`)}`);
 }
@@ -59,6 +57,10 @@ export async function createAppDirFolder(appName, outDir) {
 }
 
 export async function downloadAppImageTool(filePath) {
+
+    if (fs.existsSync(filePath)) {
+        return;
+    }
    
     let apiResponse = await axios({
         method: 'get',
