@@ -9,8 +9,9 @@ import createAppImage from "appimage";
 
 await createAppImage({
     appName: 'demo',
-    outDir: '/path/to/outdir',
-    appImagePath: '/path/to/cached/appimagefile',
+    outDir: './path/to/outdir',
+    // If AppImage is not cached, it is downloaded to below path
+    appImagePath: './path/to/cached/appimagefile',
     srcMap: {
         './path/to/AppRun': '/AppRun',
         './path/to/demo': '/usr/bin/demo',

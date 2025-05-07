@@ -16,3 +16,9 @@
 * **deps:** bump axios from 1.8.4 to 1.9.0 in the npm group ([#6](https://github.com/ayushmanchhabra/node-appimage/issues/6)) ([a5439ea](https://github.com/ayushmanchhabra/node-appimage/commit/a5439eac5741e260636e3dfcb1eb165e7302df00))
 * **docs:** update contributing section ([0634dc8](https://github.com/ayushmanchhabra/node-appimage/commit/0634dc869a9b3afe561ec5608a6541e2083f3609))
 * **test:** improve strategy ([#7](https://github.com/ayushmanchhabra/node-appimage/issues/7)) ([372cc89](https://github.com/ayushmanchhabra/node-appimage/commit/372cc89a87631fe5a499ac09f8aa2318e59bc10b))
+
+## [0.1.0](https://github.com/ayushmanchhabra/node-appimage/compare/v0.0.1...v0.1.0) (2025-04-20)
+
+### Features
+
+* create basic AppImage ([#2](https://github.com/ayushmanchhabra/node-appimage/issues/2)) ([dfdb899](https://github.com/ayushmanchhabra/node-appimage/commit/ dfdb89983cbf37493734ec19587f155750606fa7))
