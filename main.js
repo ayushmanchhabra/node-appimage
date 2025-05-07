@@ -54,9 +54,9 @@ export async function createAppDirFolder(appName, outDir) {
 
 /**
  * Place a file in the AppDir.
- * @param {*} appDir - The AppDir directory
- * @param {*} src - The source file path
- * @param {*} dest - The destination file path relative to the AppDir
+ * @param {string} appDir - The AppDir directory
+ * @param {string} src - The source file path
+ * @param {string} dest - The destination file path relative to the AppDir
  * @returns {Promise<void>} - Resolves when the file is placed
  */
 export async function placeFile (appDir, src, dest) {
