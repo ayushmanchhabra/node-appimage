@@ -6,7 +6,7 @@ import stream from 'node:stream';
 import axios from 'axios';
 
 /**
- * 
+ * Creates an AppImage for a given application.
  * @param {object} options
  * @param {string} options.appName - Name of the application
  * @param {string} options.outDir - Output directory for the AppDir
@@ -67,6 +67,11 @@ export async function placeFile (appDir, src, dest) {
         await fs.promises.chmod(destFilePath, 0o755);
 }
 
+/**
+ * Download the AppImage tool if it doesn't exist.
+ * @param {string} filePath - The file path to cache the AppImage tool at
+ * @returns {Promise<void>} - Resolves when the AppImage tool is downloaded and cached
+ */
 export async function downloadAppImageTool(filePath) {
 
     if (fs.existsSync(filePath)) {
