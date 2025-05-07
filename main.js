@@ -1,6 +1,6 @@
+import child_process from 'node:child_process';
 import fs from 'node:fs';
 import path from 'node:path';
-import child_process from 'node:child_process';
 import stream from 'node:stream';
 
 import axios from 'axios';
@@ -27,7 +27,7 @@ export default async function createAppImage({
     const appImageToolPath = path.resolve(appImagePath)
     await downloadAppImageTool(appImageToolPath);
     await fs.promises.chmod(appImageToolPath, 0o755);
-    child_process.execSync(`${appImageToolPath} ${appDir} ${path.resolve(outDir, `${appName}.AppImage`)}`);
+    child_process.execFileSync(appImageToolPath, [appDir, path.resolve(outDir, `${appName}.AppImage`)]);
 }
 
 /**
