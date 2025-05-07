@@ -1,5 +1,17 @@
 # Changelog
 
+## [0.2.1](https://github.com/ayushmanchhabra/node-appimage/compare/v0.2.0...v0.2.1) (2025-05-07)
+
+
+### Bug Fixes
+
+* **security:** use execFileSync instead of execSync ([#11](https://github.com/ayushmanchhabra/node-appimage/issues/11)) ([6a47e05](https://github.com/ayushmanchhabra/node-appimage/commit/6a47e0532072d5f422c6bc514ed876c530fcaef9))
+
+
+### Chores
+
+* refactor logic into placeFile function and more ([#9](https://github.com/ayushmanchhabra/node-appimage/issues/9)) ([318a640](https://github.com/ayushmanchhabra/node-appimage/commit/318a640139c808129d105e4c8f0b1c8561f1ee37))
+
 ## [0.2.0](https://github.com/ayushmanchhabra/node-appimage/compare/v0.1.0...v0.2.0) (2025-05-06)
 
 
