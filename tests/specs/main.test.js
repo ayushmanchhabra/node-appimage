@@ -4,7 +4,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { afterEach, describe, it } from 'node:test';
 
-import createAppImAge, { createAppDirFolder, downloadAppImageTool } from '../../main.js';
+import createAppImAge, { createAppDirFolder, downloadAppImageTool, placeFile } from '../../main.js';
 
 describe('AppImage test suite', function () {
 
@@ -20,6 +20,12 @@ describe('AppImage test suite', function () {
             new Error(`AppDir at file path ${path.resolve('./tests/fixtures/demo.AppDir')} already exists.`),
         );
     })
+
+    it('places the binary file into {appName}.AppDir directory', async function () {
+        await fs.promises.mkdir('./tests/fixtures/demo.AppDir', { recursive: true });
+        await placeFile('./tests/fixtures/demo.AppDir', './tests/fixtures/demo', '/usr/bin/demo');
+        assert.strictEqual(fs.existsSync('./tests/fixtures/demo.AppDir/usr/bin/demo'), true);
+    });
 
     it('downloads appimagetool from GitHub', async function () {
         await downloadAppImageTool('./tests/fixtures/appimagetool.AppImage');
