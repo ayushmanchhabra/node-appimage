@@ -1,5 +1,7 @@
 # appimage
 
+[![npm](https://img.shields.io/npm/v/appimage/latest)](https://www.npmjs.com/package/appimage/v/latest)
+
 A Node.js implementation of packaging a Linux binary as an AppImage.
 
 ## Getting Started
