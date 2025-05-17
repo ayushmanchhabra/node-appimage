@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.2.3](https://github.com/ayushmanchhabra/node-appimage/compare/v0.2.2...v0.2.3) (2025-05-17)
+
+
+### Chores
+
+* **ci:** move env check in separate job ([7203df0](https://github.com/ayushmanchhabra/node-appimage/commit/7203df074e1526578f8d0e4f136537e2454ffaa5))
+
 ## [0.2.2](https://github.com/ayushmanchhabra/node-appimage/compare/v0.2.1...v0.2.2) (2025-05-17)
 
 
