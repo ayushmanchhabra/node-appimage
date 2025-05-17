@@ -27,9 +27,23 @@ describe('AppImage test suite', function () {
         assert.strictEqual(fs.existsSync('./tests/fixtures/demo.AppDir/usr/bin/demo'), true);
     });
 
+    it('throws error if source file does not exist', async function () {
+        await fs.promises.mkdir('./tests/fixtures/demo.AppDir', { recursive: true });
+        assert.rejects(
+            placeFile('./tests/fixtures/demo.AppDir', './tests/fixtures/nonexistentfile', '/usr/bin/demo'),
+            new Error(`Source file ./tests/fixtures/nonexistentfile does not exist.`),
+        );
+    });
+
     it('downloads appimagetool from GitHub', async function () {
         await downloadAppImageTool('./tests/fixtures/appimagetool.AppImage');
         assert.strictEqual(fs.existsSync('./tests/fixtures/appimagetool.AppImage'), true);
+    });
+
+    it('returns if the appimagetool is already downloaded', async function () {
+        await fs.promises.mkdir('./tests/fixtures', { recursive: true });
+        await fs.promises.writeFile('./tests/fixtures/appimagetool.AppImage', 'dummy content');
+        assert.strictEqual(await downloadAppImageTool('./tests/fixtures/appimagetool.AppImage'), 1);
     });
 
     it('creates an {appName}.AppImage and executes it correctly', async function () {
@@ -52,5 +66,6 @@ describe('AppImage test suite', function () {
     afterEach(async function () {
         // Clean up the test fixture test.AppDir directory after every test
         await fs.promises.rm('./tests/fixtures/demo.AppDir', { recursive: true, force: true });
+        await fs.promises.rm('./tests/fixtures/appimagetool.AppImage', { recursive: true, force: true });
     });
 });

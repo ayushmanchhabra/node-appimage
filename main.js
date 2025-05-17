@@ -58,8 +58,12 @@ export async function createAppDirFolder(appName, outDir) {
  * @param {string} src - The source file path
  * @param {string} dest - The destination file path relative to the AppDir
  * @returns {Promise<void>} - Resolves when the file is placed
+ * @throws {Error} If the source file does not exist
  */
 export async function placeFile (appDir, src, dest) {
+    if (!fs.existsSync(src)) {
+        throw new Error(`Source file ${src} does not exist.`);
+    }
     const srcFilePath = path.resolve(src);
         const destFilePath = path.resolve(appDir, '.' + dest);
         await fs.promises.mkdir(path.dirname(destFilePath), { recursive: true });
@@ -70,12 +74,12 @@ export async function placeFile (appDir, src, dest) {
 /**
  * Download the AppImage tool if it doesn't exist.
  * @param {string} filePath - The file path to cache the AppImage tool at
- * @returns {Promise<void>} - Resolves when the AppImage tool is downloaded and cached
+ * @returns {Promise<void | 1>} - Resolves when the AppImage tool is downloaded and cached
  */
 export async function downloadAppImageTool(filePath) {
 
     if (fs.existsSync(filePath)) {
-        return;
+        return 1;
     }
    
     let apiResponse = await axios({
