@@ -60,15 +60,15 @@ export async function createAppDirFolder(appName, outDir) {
  * @returns {Promise<void>} - Resolves when the file is placed
  * @throws {Error} If the source file does not exist
  */
-export async function placeFile (appDir, src, dest) {
+export async function placeFile(appDir, src, dest) {
     if (!fs.existsSync(src)) {
         throw new Error(`Source file ${src} does not exist.`);
     }
     const srcFilePath = path.resolve(src);
-        const destFilePath = path.resolve(appDir, '.' + dest);
-        await fs.promises.mkdir(path.dirname(destFilePath), { recursive: true });
-        await fs.promises.copyFile(srcFilePath, destFilePath);
-        await fs.promises.chmod(destFilePath, 0o755);
+    const destFilePath = path.resolve(appDir, '.' + dest);
+    await fs.promises.mkdir(path.dirname(destFilePath), { recursive: true });
+    await fs.promises.copyFile(srcFilePath, destFilePath);
+    await fs.promises.chmod(destFilePath, 0o755);
 }
 
 /**
@@ -81,14 +81,14 @@ export async function downloadAppImageTool(filePath) {
     if (fs.existsSync(filePath)) {
         return 1;
     }
-   
+
     let apiResponse = await axios({
         method: 'get',
         url: 'https://api.github.com/repos/appimage/appimagetool/releases',
         responseType: 'json'
     });
-    
-    let url = `https://github.com/AppImage/appimagetool/releases/download/${apiResponse.data[0].tag_name}/appimagetool-${process.arch === 'x64' ? 'x86_64': 'i686'}.AppImage`
+
+    let url = `https://github.com/AppImage/appimagetool/releases/download/${apiResponse.data[0].tag_name}/appimagetool-${process.arch === 'x64' ? 'x86_64' : 'i686'}.AppImage`
 
     const writeStream = fs.createWriteStream(filePath);
 
