@@ -1,5 +1,18 @@
 # Changelog
 
+## [0.2.2](https://github.com/ayushmanchhabra/node-appimage/compare/v0.2.1...v0.2.2) (2025-05-17)
+
+
+### Bug Fixes
+
+* throw error if file does not exist ([20e33b5](https://github.com/ayushmanchhabra/node-appimage/commit/20e33b569c80f0c2925845b0c8c55b97033d10aa))
+
+
+### Chores
+
+* **docs:** add badge ([4676f13](https://github.com/ayushmanchhabra/node-appimage/commit/4676f13ffeeaef452a2c27e625c246367ae8aff4))
+* format lines of code ([d78629d](https://github.com/ayushmanchhabra/node-appimage/commit/d78629dc97016be90516e9da4431388a13da45f2))
+
 ## [0.2.1](https://github.com/ayushmanchhabra/node-appimage/compare/v0.2.0...v0.2.1) (2025-05-07)
 
 
