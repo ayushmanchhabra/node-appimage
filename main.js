@@ -21,8 +21,8 @@ export default async function createAppImage({
     srcMap = {},
 }) {
     const appDir = await createAppDirFolder(appName, outDir);
-    for (const [src, dest] of Object.entries(srcMap)) {
-        await placeFile(appDir, dest, src);
+    for (const [dest, src] of Object.entries(srcMap)) {
+        await placeFile(appDir, src, dest);
     }
     const appImageToolPath = path.resolve(appImagePath)
     await downloadAppImageTool(appImageToolPath);
