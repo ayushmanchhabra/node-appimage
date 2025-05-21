@@ -52,10 +52,10 @@ describe('AppImage test suite', function () {
             outDir: './tests/fixtures',
             appImagePath: './tests/fixtures/appimagetool.AppImage',
             srcMap: {
-                './tests/fixtures/AppRun': '/AppRun',
-                './tests/fixtures/demo': '/usr/bin/demo',
-                './tests/fixtures/demo.desktop': '/demo.desktop',
-                './tests/fixtures/demo.png': '/demo.png',
+                '/AppRun': './tests/fixtures/AppRun',
+                '/usr/bin/demo': './tests/fixtures/demo',
+                '/demo.desktop': './tests/fixtures/demo.desktop',
+                '/demo.png': './tests/fixtures/demo.png',
             }
         });
 

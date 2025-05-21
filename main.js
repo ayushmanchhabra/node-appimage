@@ -11,7 +11,7 @@ import axios from 'axios';
  * @param {string} options.appName - Name of the application
  * @param {string} options.outDir - Output directory for the AppDir
  * @param {string} options.appImagePath - Path to the AppImage tool
- * @param {{[key: string]: string}} options.srcMap - Map of source files to destination paths in the AppDir
+ * @param {{[key: string]: string}} options.srcMap - Map of destination paths to source files in the AppDir
  * @returns {Promise<void>} - Resolves when the AppImage is created at `${outDir}/${appName}.AppImage`
  */
 export default async function createAppImage({
@@ -21,7 +21,7 @@ export default async function createAppImage({
     srcMap = {},
 }) {
     const appDir = await createAppDirFolder(appName, outDir);
-    for (const [src, dest] of Object.entries(srcMap)) {
+    for (const [dest, src] of Object.entries(srcMap)) {
         await placeFile(appDir, src, dest);
     }
     const appImageToolPath = path.resolve(appImagePath)
