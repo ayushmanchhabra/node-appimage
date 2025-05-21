@@ -15,10 +15,10 @@ await createAppImage({
     // If AppImage is not cached, it is downloaded to below path
     appImagePath: './path/to/cached/appimagefile',
     srcMap: {
-        './path/to/AppRun': '/AppRun',
-        './path/to/demo': '/usr/bin/demo',
-        './path/to/demo.desktop': '/demo.desktop',
-        './path/to/demo.png': '/demo.png',
+        '/AppRun': './path/to/AppRun',
+        '/usr/bin/demo': './path/to/demo',
+        '/demo.desktop': './path/to/demo.desktop',
+        '/demo.png': './path/to/demo.png',
     }
 });
 ```
