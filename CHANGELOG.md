@@ -1,5 +1,17 @@
 # Changelog
 
+## [0.3.0](https://github.com/ayushmanchhabra/node-appimage/compare/v0.2.2...v0.3.0) (2025-05-21)
+
+
+### Features
+
+* **srcmap:** make destination path the key and source path the value ([#14](https://github.com/ayushmanchhabra/node-appimage/issues/14)) ([1f93c4e](https://github.com/ayushmanchhabra/node-appimage/commit/1f93c4e5b46a4743e1531c4662e0e3dc14b8215e))
+
+
+### Chores
+
+* **ci:** move env check in separate job ([7203df0](https://github.com/ayushmanchhabra/node-appimage/commit/7203df074e1526578f8d0e4f136537e2454ffaa5))
+
 ## [0.2.2](https://github.com/ayushmanchhabra/node-appimage/compare/v0.2.1...v0.2.2) (2025-05-17)
 
 
