@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.3.1](https://github.com/ayushmanchhabra/node-appimage/compare/v0.3.0...v0.3.1) (2025-05-23)
+
+
+### Bug Fixes
+
+* **srcmap:** copy files and directories ([#15](https://github.com/ayushmanchhabra/node-appimage/issues/15)) ([66224df](https://github.com/ayushmanchhabra/node-appimage/commit/66224df8e10952488baf16336289055fdba65095))
+
 ## [0.3.0](https://github.com/ayushmanchhabra/node-appimage/compare/v0.2.2...v0.3.0) (2025-05-21)
 
 
