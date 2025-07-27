@@ -1,5 +1,18 @@
 # Changelog
 
+## [0.3.2](https://github.com/ayushmanchhabra/node-appimage/compare/v0.3.1...v0.3.2) (2025-07-27)
+
+
+### Bug Fixes
+
+* **deps:** bump form-data from 4.0.2 to 4.0.4 in the npm_and_yarn group ([#19](https://github.com/ayushmanchhabra/node-appimage/issues/19)) ([af6f570](https://github.com/ayushmanchhabra/node-appimage/commit/af6f5701e57981784cf81c1193ce832b10eaed50))
+
+
+### Chores
+
+* **deps:** bump axios from 1.10.0 to 1.11.0 in the npm group ([#20](https://github.com/ayushmanchhabra/node-appimage/issues/20)) ([524597f](https://github.com/ayushmanchhabra/node-appimage/commit/524597f5d658d439888dd4c4dd784161d660022c))
+* **deps:** bump axios from 1.9.0 to 1.10.0 in the npm group ([#17](https://github.com/ayushmanchhabra/node-appimage/issues/17)) ([45760c3](https://github.com/ayushmanchhabra/node-appimage/commit/45760c358e41af50e12dd166f83919d5fdd9a048))
+
 ## [0.3.1](https://github.com/ayushmanchhabra/node-appimage/compare/v0.3.0...v0.3.1) (2025-05-23)
 
 
