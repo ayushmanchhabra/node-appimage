@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.3.3](https://github.com/ayushmanchhabra/node-appimage/compare/v0.3.2...v0.3.3) (2025-08-22)
+
+
+### Chores
+
+* **deps:** bump the gha group across 1 directory with 2 updates ([#22](https://github.com/ayushmanchhabra/node-appimage/issues/22)) ([7ea6dc8](https://github.com/ayushmanchhabra/node-appimage/commit/7ea6dc8475eb0b1e49cf73a302e459be5611fa61))
+
 ## [0.3.2](https://github.com/ayushmanchhabra/node-appimage/compare/v0.3.1...v0.3.2) (2025-07-27)
 
 
