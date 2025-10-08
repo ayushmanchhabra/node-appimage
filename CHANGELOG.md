@@ -1,5 +1,14 @@
 # Changelog
 
+## [0.3.3](https://github.com/ayushmanchhabra/node-appimage/compare/v0.3.2...v0.3.3) (2025-10-08)
+
+
+### Chores
+
+* **deps:** bump axios from 1.11.0 to 1.12.1 in the npm group ([#25](https://github.com/ayushmanchhabra/node-appimage/issues/25)) ([1bcb332](https://github.com/ayushmanchhabra/node-appimage/commit/1bcb332fd507d0478ba820b8042075cea72abe04))
+* **deps:** bump the gha group across 1 directory with 2 updates ([#22](https://github.com/ayushmanchhabra/node-appimage/issues/22)) ([7ea6dc8](https://github.com/ayushmanchhabra/node-appimage/commit/7ea6dc8475eb0b1e49cf73a302e459be5611fa61))
+* **deps:** bump the gha group across 1 directory with 2 updates ([#27](https://github.com/ayushmanchhabra/node-appimage/issues/27)) ([d801ae6](https://github.com/ayushmanchhabra/node-appimage/commit/d801ae64405c9bbf266707f70ed71b7c0db7cf5d))
+
 ## [0.3.2](https://github.com/ayushmanchhabra/node-appimage/compare/v0.3.1...v0.3.2) (2025-07-27)
 
 
