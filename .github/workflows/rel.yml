@@ -15,7 +15,7 @@ jobs:
     runs-on: ubuntu-24.04
     steps:
       - name: Release Please
-        uses: googleapis/release-please-action@v4.3.0
+        uses: googleapis/release-please-action@v4.4.0
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           config-file: .github/release-please-config.json
