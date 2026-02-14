@@ -1,5 +1,23 @@
 # Changelog
 
+## [0.3.3](https://github.com/ayushmanchhabra/node-appimage/compare/v0.3.2...v0.3.3) (2026-02-12)
+
+
+### Bug Fixes
+
+* **deps:** bump axios from 1.13.4 to 1.13.5 ([#34](https://github.com/ayushmanchhabra/node-appimage/issues/34)) ([2ea7059](https://github.com/ayushmanchhabra/node-appimage/commit/2ea7059baaa66e7ecfb6b20948ec7173e67c3228))
+
+
+### Chores
+
+* **dependabot:** daily -&gt; monthly ([83db838](https://github.com/ayushmanchhabra/node-appimage/commit/83db838729678dadf9319af70289117122f47a63))
+* **deps:** bump axios from 1.11.0 to 1.12.1 in the npm group ([#25](https://github.com/ayushmanchhabra/node-appimage/issues/25)) ([1bcb332](https://github.com/ayushmanchhabra/node-appimage/commit/1bcb332fd507d0478ba820b8042075cea72abe04))
+* **deps:** bump axios from 1.12.1 to 1.12.2 in the npm group ([#29](https://github.com/ayushmanchhabra/node-appimage/issues/29)) ([06ea4b8](https://github.com/ayushmanchhabra/node-appimage/commit/06ea4b805046cf52ddc89e04e75bb91d7f913629))
+* **deps:** bump JS-DevTools/npm-publish from 4.1.4 to 4.1.5 in /.github/workflows in the gha group ([#33](https://github.com/ayushmanchhabra/node-appimage/issues/33)) ([ab5011f](https://github.com/ayushmanchhabra/node-appimage/commit/ab5011f447374e470277632d10036164e4c3406f))
+* **deps:** bump the gha group across 1 directory with 2 updates ([#22](https://github.com/ayushmanchhabra/node-appimage/issues/22)) ([7ea6dc8](https://github.com/ayushmanchhabra/node-appimage/commit/7ea6dc8475eb0b1e49cf73a302e459be5611fa61))
+* **deps:** bump the gha group across 1 directory with 2 updates ([#27](https://github.com/ayushmanchhabra/node-appimage/issues/27)) ([d801ae6](https://github.com/ayushmanchhabra/node-appimage/commit/d801ae64405c9bbf266707f70ed71b7c0db7cf5d))
+* **deps:** bump the gha group across 1 directory with 4 updates ([#32](https://github.com/ayushmanchhabra/node-appimage/issues/32)) ([b7bb7eb](https://github.com/ayushmanchhabra/node-appimage/commit/b7bb7ebfd103fdc848566771ea5d7a5e1fa7318b))
+
 ## [0.3.2](https://github.com/ayushmanchhabra/node-appimage/compare/v0.3.1...v0.3.2) (2025-07-27)
 
 
