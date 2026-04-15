@@ -1,5 +1,19 @@
 # Changelog
 
+## [0.3.4](https://github.com/ayushmanchhabra/node-appimage/compare/v0.3.3...v0.3.4) (2026-04-15)
+
+
+### Bug Fixes
+
+* **deps:** bump axios from 1.13.6 to 1.15.0 ([#39](https://github.com/ayushmanchhabra/node-appimage/issues/39)) ([b3baa9a](https://github.com/ayushmanchhabra/node-appimage/commit/b3baa9a35c42af7f1a7ea4b0db1a864c02473a1e))
+* **deps:** bump follow-redirects from 1.15.11 to 1.16.0 ([#40](https://github.com/ayushmanchhabra/node-appimage/issues/40)) ([3a82249](https://github.com/ayushmanchhabra/node-appimage/commit/3a8224987f9502c70ede47261508600fc5fa8ec4))
+
+
+### Chores
+
+* **deps:** bump axios from 1.13.5 to 1.13.6 in the npm group ([#35](https://github.com/ayushmanchhabra/node-appimage/issues/35)) ([0f94dc3](https://github.com/ayushmanchhabra/node-appimage/commit/0f94dc30a8a3d8394f040496cd4a823d0fff42e9))
+* **deps:** bump the gha group in /.github/workflows with 2 updates ([#37](https://github.com/ayushmanchhabra/node-appimage/issues/37)) ([d523c95](https://github.com/ayushmanchhabra/node-appimage/commit/d523c9553e73ae7fba68ad3993b138a43a07fb45))
+
 ## [0.3.3](https://github.com/ayushmanchhabra/node-appimage/compare/v0.3.2...v0.3.3) (2026-02-12)
 
 
